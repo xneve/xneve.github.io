@@ -34,7 +34,7 @@ There is also `expand` function that gets called when we go past bytecode memory
 
 I made a state structure in IDA to help me understand how rest of the code works. It has instruction pointer, stack pointer, stack base and 8 general purpose registers r0-r7. Stack base is set to end of our heap chunk, and then stack "grows" downwards.
 
-![state structure](state-struct.png)
+![state structure](state-struct.png){: width="370px" }
 
 The rest of the VM is just a loop with inner switch statement that decides what instruction is gonna be executed based on opcode.
 
