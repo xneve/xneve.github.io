@@ -29,12 +29,15 @@ We can check that our binary is 64-bit ELF with many security mitigations enable
 After some time looking at and fixing decompiled code in IDA, we can see that it's a custom virtual machine that executes bytecode that we give it. Our virtual machine has 2 main components that are kept on heap - memory and state. The first 256 bytes in memory are reserved for our bytecode. 
 
 There is also `expand` function that gets called when we go past bytecode memory with our execution. We can use it to restart bytecode memory by simply sending new payload (`expand` function will be also useful in later part of exploit).
+
 ![virtual machine setup](vmsetup-decompilation.png)
 
 I made a state structure in IDA to help me understand how rest of the code works. It has instruction pointer, stack pointer, stack base and 8 general purpose registers r0-r7. Stack base is set to end of our heap chunk, and then stack "grows" downwards.
+
 ![state structure](state-struct.png)
 
 The rest of the VM is just a loop with inner switch statement that decides what instruction is gonna be executed based on opcode.
+
 ![vm switch](vm-inner-switch.png)
 
 ## Writing bytecode assembler
